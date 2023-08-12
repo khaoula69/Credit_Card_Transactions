@@ -22,8 +22,6 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 	@Override
 	public List<Transaction> getAllTransactions() throws ApiException, IOException {
 		ClassPathResource resource = new ClassPathResource("transactionsMock.json");
-		// String json = StreamUtils.copyToString(resource.getInputStream(),
-		// StandardCharsets.UTF_8);
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Transaction> transactions = objectMapper.readValue(resource.getInputStream(),
 				new TypeReference<List<Transaction>>() {
