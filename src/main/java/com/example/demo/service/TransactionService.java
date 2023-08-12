@@ -13,7 +13,7 @@ import com.example.demo.model.TransactionFilter;
 public interface TransactionService {
 	
     List<Transaction> getTransactionByFilter(TransactionFilter filter) throws ApiException,IOException;
-     List<Transaction> getFilteredSortedTransactions( TransactionFilter filter, String sortOrder, boolean ascend, Integer page, Integer perPage) throws ApiException,IOException;
+     List<Transaction> getFilteredSortedTransactions( TransactionFilter filter, String sortOrder, Integer page, Integer perPage) throws ApiException,IOException;
 
 List<Transaction> perPageTransactions(List<Transaction>transactions, Integer page,Integer perPage) throws ApiException,IOException;
 }

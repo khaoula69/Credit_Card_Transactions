@@ -34,8 +34,8 @@ public class TransactionServiceImpl implements TransactionService {
 		return filteredTransactions;
 	}
 	
-	private List<Transaction> sortByField(List<Transaction> transactions, String sortingField, boolean ascend) throws ApiException {
-	ascend=true;
+	private List<Transaction> sortByField(List<Transaction> transactions, String sortingField ) throws ApiException {
+	   
 		Comparator<Transaction> comparator=Comparator.comparing(Transaction::getId);
         if ("amount".equalsIgnoreCase(sortingField)) {
             comparator = Comparator.comparing(Transaction::getAmount);
@@ -46,30 +46,10 @@ public class TransactionServiceImpl implements TransactionService {
         }else {
 			throw new ApiException(HttpStatus.BAD_REQUEST.value(),"INVALID_SORT_FIELD_VALUE");
         }
-        if (!ascend) {
-            comparator = comparator.reversed();
-        }
-
 		Collections.sort(transactions, comparator);
 		return transactions;
 	}
-
-	@Override
-	public List<Transaction> getFilteredSortedTransactions(TransactionFilter filter, String sortOrder, boolean ascend, Integer page,
-			Integer perPage) throws ApiException,IOException {
-      
-        List<Transaction> transactions = (filter!=null) ? getTransactionByFilter(filter):transactionRepository.getAllTransactions();
-if(sortOrder!= null) {
-	sortByField(transactions,sortOrder, ascend);
-}
-
-
-	if (page != null && perPage != null) {
-		transactions=perPageTransactions(transactions, page, perPage);
-	}
-	return transactions;
-      
-    }
+	
 	@Override
 	public List<Transaction> perPageTransactions(List<Transaction> transactions,Integer page, Integer perPage) throws ApiException, IOException {
 		if (page <= 0 || page >= transactions.size())
@@ -85,5 +65,23 @@ if(sortOrder!= null) {
 	return transactions;
 
 }
+
+	@Override
+	public List<Transaction> getFilteredSortedTransactions(TransactionFilter filter, String sortOrder, Integer page,
+			Integer perPage) throws ApiException,IOException {
+      
+        List<Transaction> transactions = (filter!=null) ? getTransactionByFilter(filter):transactionRepository.getAllTransactions();
+if(sortOrder!= null) {
+	sortByField(transactions,sortOrder);
+}
+
+
+	if (page != null && perPage != null) {
+		transactions=perPageTransactions(transactions, page, perPage);
+	}
+	return transactions;
+      
+    }
+
 
 }

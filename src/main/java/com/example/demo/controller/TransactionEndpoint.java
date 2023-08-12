@@ -31,46 +31,45 @@ public class TransactionEndpoint {
 	@Autowired
 	TransactionService transactionService;
 
-//	@GetMapping("/transactions")
-//	public ResponseStatus<List<Transaction>> findAllTransactions() throws IOException {
-//
-//		try {
-//			// add if control if the list is empty to return no data found
-//			return new ResponseStatus<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(),
-//					transactionRepository.getAllTransactions());
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseStatus<>(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-//					HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), null);
-//		}
-//	}
-//
-//	@GetMapping("/filtredTransactions")
-//	public ResponseStatus<List<Transaction>> getFiltredTransactions(
-//			@RequestParam(value = "amount", required = false) Double amount,
-//			@RequestParam(value = "status", required = false) String status,
-//			@RequestParam(value = "merchant", required = false) String merchant)throws ApiException, IOException {
-//
-//		TransactionFilter transactionFilter = new TransactionFilter(amount, merchant, status);
-//		
-//			return new ResponseStatus<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(),
-//					transactionService.getTransactionByFilter(transactionFilter));
-//		} 
+	
+	// api to fetch all transactions
+	@GetMapping("/transactions")
+	public ResponseStatus<List<Transaction>> findAllTransactions()  throws ApiException, IOException{
 
-	@GetMapping("/filtredSortedTransactions")
-	public ResponseStatus<List<Transaction>> getFiltredSortedTransactions(
+	
+			// add if control if the list is empty to return no data found
+			return new ResponseStatus<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(),
+					transactionRepository.getAllTransactions());
+
+		
+	}
+	// api to fetch transactions using filter
+
+	@GetMapping("/filtredTransactions")
+	public ResponseStatus<List<Transaction>> getFiltredTransactions(
 			@RequestParam(value = "amount", required = false) Double amount,
 			@RequestParam(value = "status", required = false) String status,
-			@RequestParam(value = "merchant", required = false) String merchant,
+			@RequestParam(value = "merchant", required = false) String merchant)throws ApiException, IOException {
+
+		TransactionFilter transactionFilter = new TransactionFilter(amount, merchant, status);
+		
+			return new ResponseStatus<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(),
+					transactionService.getTransactionByFilter(transactionFilter));
+		} 
+
+	// api to get transactions using filter, sorting and pagination if wanted
+	@GetMapping("/filtredSortedTransactions")
+	public ResponseStatus<List<Transaction>> getFiltredSortedTransactions(
+			@RequestParam( required = false) Double amount,
+			@RequestParam( required = false) String status,
+			@RequestParam( required = false) String merchant,
 			@RequestParam(required = false) String sortField,
-			@RequestParam(required = false) Boolean sortOrder,
 			@RequestParam(required = false) Integer page,
 			@RequestParam(required = false) Integer perPage) throws ApiException, IOException {
 		TransactionFilter transactionFilter = new TransactionFilter(amount, merchant, status);
 
 		return new ResponseStatus<>(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(),
-				transactionService.getFilteredSortedTransactions(transactionFilter, sortField,sortOrder, page, perPage));
+				transactionService.getFilteredSortedTransactions(transactionFilter, sortField, page, perPage));
 
 	}
 

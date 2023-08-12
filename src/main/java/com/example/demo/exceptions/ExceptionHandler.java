@@ -1,9 +1,12 @@
 package com.example.demo.exceptions;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.demo.model.ResponseStatus;
 
+
+@RestControllerAdvice
 public class ExceptionHandler {
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(ApiException.class)
