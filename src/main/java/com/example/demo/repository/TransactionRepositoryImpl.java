@@ -8,16 +8,19 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StreamUtils;
 
+import com.example.demo.exceptions.ApiException;
 import com.example.demo.model.Transaction;
 import com.example.demo.model.TransactionFilter;
+import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Repository
 public class TransactionRepositoryImpl implements TransactionRepository {
 
 	@Override
-	public List<Transaction> getAllTransactions() throws IOException {
+	public List<Transaction> getAllTransactions() throws ApiException, IOException {
 		ClassPathResource resource = new ClassPathResource("transactionsMock.json");
 		//String json = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
 		ObjectMapper objectMapper = new ObjectMapper();

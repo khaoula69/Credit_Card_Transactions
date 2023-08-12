@@ -14,7 +14,14 @@ public class ResponseStatus<T> {
     private Integer statusCode;
     private String message;
     private T content;
+    
 
+	
+	
+
+	
+    
+    
   
 
 }

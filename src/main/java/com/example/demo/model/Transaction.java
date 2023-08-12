@@ -15,5 +15,9 @@ public class Transaction {
 	private String merchant;
 	private String status;
 	private Date date;
+	
+	
+	
+	
 
 }

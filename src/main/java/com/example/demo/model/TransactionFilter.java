@@ -11,4 +11,6 @@ public class TransactionFilter {
 	private Double amount;
 	private String merchant;
 	private String status;
+	
+	
 }
