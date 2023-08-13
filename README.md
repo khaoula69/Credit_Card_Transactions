@@ -37,7 +37,7 @@ mvn spring-boot:run
   GET  http://localhost:8090/creditCardTransaction/filtredTransactions?[parameters]
 
   ```
-Arguments:
+Parameters:
 * amount: filter by amount
 * merchant: filter by merchant
 * status: filter by status
@@ -47,7 +47,7 @@ Arguments:
   GET  http://localhost:8090/creditCardTransaction/filtredSortedTransactions?[parameters]
 
   ```
-Arguments:
+Parameters:
 * amount: filter by amount
 * merchant: filter by merchant
 * status: filter by status
